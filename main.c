@@ -20,10 +20,14 @@ int main()
         printf("1. Alta de Empresa\n");
         printf("2. Listar Empresas\n");
         printf("3. Modificar Empresa\n");
-        printf("4. Alta de Cliente\n");
-        printf("5. Listar Clientes\n");
-        printf("6. Modificar Cliente\n");
-        printf("7. Salir\n");
+        printf("4. Baja de Empresa\n");
+        printf("5. Alta de Cliente\n");
+        printf("6. Listar Clientes\n");
+        printf("7. Modificar Cliente\n");
+        printf("8. Baja de Cliente\n");
+        printf("9. Realizar Inversión\n");  // Nueva opción
+        printf("10. Ver Portafolio\n");     // Nueva opción
+        printf("11. Salir\n");
         printf("Opción: ");
         scanf("%d", &opcion);
 
@@ -39,22 +43,44 @@ int main()
             modificarEmpresa(empresas, num_empresas);
             break;
         case 4:
-            altaCliente(clientes, &num_clientes);
+            bajaEmpresa(empresas, &num_empresas);
             break;
         case 5:
-            listarClientes(clientes, num_clientes);
+            altaCliente(clientes, &num_clientes);
             break;
         case 6:
-            modificarCliente(clientes, num_clientes);
+            listarClientes(clientes, num_clientes);
             break;
         case 7:
+            modificarCliente(clientes, num_clientes);
+            break;
+        case 8:
+            bajaCliente(clientes, &num_clientes);
+            break;
+        case 9:
+        {
+            int cliente_index;
+            printf("Ingrese el índice del cliente que realiza la inversión (0 a %d): ", num_clientes - 1);
+            scanf("%d", &cliente_index);
+            realizarInversion(&clientes[cliente_index], empresas, num_empresas);
+            break;
+        }
+        case 10:
+        {
+            int cliente_index;
+            printf("Ingrese el índice del cliente para ver el portafolio (0 a %d): ", num_clientes - 1);
+            scanf("%d", &cliente_index);
+            verPortafolio(clientes[cliente_index]);
+            break;
+        }
+        case 11:
             printf("Saliendo...\n");
             break;
         default:
             printf("Opción no válida.\n");
         }
     }
-    while (opcion != 7);
+    while (opcion != 11);
 
     return 0;
 

@@ -18,6 +18,6 @@ typedef struct Inversion {
 void altaEmpresa(Empresa empresas[], int *num_empresas);
 void listarEmpresas(Empresa empresas[], int num_empresas);
 void modificarEmpresa(Empresa empresas[], int num_empresas);
-
+void bajaEmpresa(Empresa empresas[], int *num_empresas);
 
 #endif // EMPRESA_H_INCLUDED

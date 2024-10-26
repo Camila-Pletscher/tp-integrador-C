@@ -17,5 +17,6 @@ typedef struct Cliente{
 void altaCliente(Cliente clientes[], int *num_clientes);
 void listarClientes(Cliente clientes[], int num_clientes);
 void modificarCliente(Cliente clientes[], int num_clientes);
+void bajaCliente(Cliente clientes[], int *num_clientes);
 
 #endif // CLIENTE_H_INCLUDED

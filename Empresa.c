@@ -61,3 +61,32 @@ void modificarEmpresa(Empresa empresas[], int num_empresas) {
         printf("Empresa con ID ticker %s no encontrada.\n", id_ticker);
     }
 }
+
+// Función para dar de baja una empresa
+void bajaEmpresa(Empresa empresas[], int *num_empresas) {
+    char id_ticker[10];
+    int encontrada = 0;
+
+    printf("Ingrese el ID ticker de la empresa a eliminar: ");
+    scanf("%s", id_ticker);
+
+    for (int i = 0; i < *num_empresas; i++) {
+        if (strcmp(empresas[i].id_ticker, id_ticker) == 0) {
+            printf("Empresa encontrada: %s será eliminada.\n", empresas[i].nombre);
+
+            // Desplazamos las empresas para llenar el hueco
+            for (int j = i; j < *num_empresas - 1; j++) {
+                empresas[j] = empresas[j + 1];
+            }
+
+            (*num_empresas)--;  // Reducimos el contador de empresas
+            encontrada = 1;
+            printf("Empresa eliminada con éxito.\n");
+            break;
+        }
+    }
+
+    if (!encontrada) {
+        printf("Empresa con ID ticker %s no encontrada.\n", id_ticker);
+    }
+}
