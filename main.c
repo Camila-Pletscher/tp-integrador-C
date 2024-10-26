@@ -1,18 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Broker.c"
-#include "Util.h"
-#include "Cliente.h"
 #include "Empresa.c"
+#include "Util.c"
 
 int main()
 {
 
-    Empresa empresas[100];  // Creamos un array de empresas
-    Cliente clientes[100];  // Creamos un array de clientes
+    Empresa empresas[100];   // Creamos un array de empresas
+    Cliente clientes[100];   // Creamos un array de clientes
     int num_empresas = 0;    // Contador de empresas
     int num_clientes = 0;    // Contador de clientes
     int opcion;
+
+    // Pre-cargamos empresas, clientes y sus inversiones
+    preCargarEmpresas(empresas, &num_empresas);
+    preCargarClientes(clientes, &num_clientes);
+    preCargarInversiones(&clientes[0], empresas, num_empresas);  // Inversiones para Juan Perez
 
     do
     {
@@ -25,8 +29,8 @@ int main()
         printf("6. Listar Clientes\n");
         printf("7. Modificar Cliente\n");
         printf("8. Baja de Cliente\n");
-        printf("9. Realizar Inversión\n");  // Nueva opción
-        printf("10. Ver Portafolio\n");     // Nueva opción
+        printf("9. Realizar Inversión\n");
+        printf("10. Ver Portafolio\n");
         printf("11. Salir\n");
         printf("Opción: ");
         scanf("%d", &opcion);
@@ -81,7 +85,6 @@ int main()
         }
     }
     while (opcion != 11);
-
     return 0;
 
 }
