@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1729966375 source:c:\codeblocks\tp-integador\main.c
+1730072629 source:c:\codeblocks\tp-integador\main.c
 	<stdio.h>
 	<stdlib.h>
 	"Broker.c"
-	"Util.h"
-	"Cliente.h"
-	"Empresa.h"
+	"Empresa.c"
+	"Util.c"
+	"Menu.c"
 
 1729966375 c:\codeblocks\tp-integador\broker.h
 	"Cliente.h"
@@ -17,15 +17,32 @@
 	<stdlib.h>
 	"Cliente.c"
 
-1729966579 c:\codeblocks\tp-integador\cliente.h
+1730070366 c:\codeblocks\tp-integador\cliente.h
 	"Empresa.h"
 
-1729966540 c:\codeblocks\tp-integador\empresa.h
+1730071658 c:\codeblocks\tp-integador\empresa.h
 
-1729965876 c:\codeblocks\tp-integador\util.h
+1730072629 c:\codeblocks\tp-integador\util.h
 
-1729966579 c:\codeblocks\tp-integador\cliente.c
+1730070366 c:\codeblocks\tp-integador\cliente.c
 	<stdio.h>
 	<string.h>
 	"Cliente.h"
+
+1729969132 c:\codeblocks\tp-integador\empresa.c
+	<stdio.h>
+	<stdlib.h>
+	"Empresa.h"
+
+1730072629 c:\codeblocks\tp-integador\util.c
+	<stdio.h>
+	<string.h>
+	"Util.h"
+
+1730128889 c:\codeblocks\tp-integador\menu.c
+	<stdio.h>
+	<string.h>
+	"Menu.h"
+
+1730072711 c:\codeblocks\tp-integador\menu.h
 

@@ -1,6 +1,7 @@
 #ifndef EMPRESA_H_INCLUDED
 #define EMPRESA_H_INCLUDED
 
+
 typedef struct Empresa {
     char id_ticker[10];
     char nombre[50];

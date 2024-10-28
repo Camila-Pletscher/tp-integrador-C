@@ -18,5 +18,7 @@ void altaCliente(Cliente clientes[], int *num_clientes);
 void listarClientes(Cliente clientes[], int num_clientes);
 void modificarCliente(Cliente clientes[], int num_clientes);
 void bajaCliente(Cliente clientes[], int *num_clientes);
+void venderAcciones(Cliente *cliente, Empresa empresas[], int num_empresas);
+void calcularRendimiento(Cliente cliente, Empresa empresas[], int num_empresas);
 
 #endif // CLIENTE_H_INCLUDED

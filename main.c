@@ -3,11 +3,12 @@
 #include "Broker.c"
 #include "Empresa.c"
 #include "Util.c"
+#include "Menu.c"
 
 int main()
 {
 
-    Empresa empresas[100];   // Creamos un array de empresas
+Empresa empresas[100];   // Creamos un array de empresas
     Cliente clientes[100];   // Creamos un array de clientes
     int num_empresas = 0;    // Contador de empresas
     int num_clientes = 0;    // Contador de clientes
@@ -18,73 +19,28 @@ int main()
     preCargarClientes(clientes, &num_clientes);
     preCargarInversiones(&clientes[0], empresas, num_empresas);  // Inversiones para Juan Perez
 
-    do
-    {
-        printf("\nSeleccione una opción:\n");
-        printf("1. Alta de Empresa\n");
-        printf("2. Listar Empresas\n");
-        printf("3. Modificar Empresa\n");
-        printf("4. Baja de Empresa\n");
-        printf("5. Alta de Cliente\n");
-        printf("6. Listar Clientes\n");
-        printf("7. Modificar Cliente\n");
-        printf("8. Baja de Cliente\n");
-        printf("9. Realizar Inversión\n");
-        printf("10. Ver Portafolio\n");
-        printf("11. Salir\n");
-        printf("Opción: ");
+    do {
+        printf("\n--- Menú Principal ---\n");
+        printf("1. Operar como Cliente\n");
+        printf("2. Operar como Broker\n");
+        printf("3. Salir\n");
+        printf("Seleccione una opción: ");
         scanf("%d", &opcion);
 
-        switch(opcion)
-        {
-        case 1:
-            altaEmpresa(empresas, &num_empresas);
-            break;
-        case 2:
-            listarEmpresas(empresas, num_empresas);
-            break;
-        case 3:
-            modificarEmpresa(empresas, num_empresas);
-            break;
-        case 4:
-            bajaEmpresa(empresas, &num_empresas);
-            break;
-        case 5:
-            altaCliente(clientes, &num_clientes);
-            break;
-        case 6:
-            listarClientes(clientes, num_clientes);
-            break;
-        case 7:
-            modificarCliente(clientes, num_clientes);
-            break;
-        case 8:
-            bajaCliente(clientes, &num_clientes);
-            break;
-        case 9:
-        {
-            int cliente_index;
-            printf("Ingrese el índice del cliente que realiza la inversión (0 a %d): ", num_clientes - 1);
-            scanf("%d", &cliente_index);
-            realizarInversion(&clientes[cliente_index], empresas, num_empresas);
-            break;
+        switch(opcion) {
+            case 1:
+                menuCliente(clientes, num_clientes, empresas, num_empresas);  // Llamamos al menú de cliente
+                break;
+            case 2:
+                menuBroker(clientes, &num_clientes, empresas, &num_empresas);  // Llamamos al menú de broker
+                break;
+            case 3:
+                printf("Saliendo...\n");
+                break;
+            default:
+                printf("Opción no válida. Intente nuevamente.\n");
         }
-        case 10:
-        {
-            int cliente_index;
-            printf("Ingrese el índice del cliente para ver el portafolio (0 a %d): ", num_clientes - 1);
-            scanf("%d", &cliente_index);
-            verPortafolio(clientes[cliente_index]);
-            break;
-        }
-        case 11:
-            printf("Saliendo...\n");
-            break;
-        default:
-            printf("Opción no válida.\n");
-        }
-    }
-    while (opcion != 11);
+    } while (opcion != 3);
     return 0;
 
 }

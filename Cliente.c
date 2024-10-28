@@ -187,3 +187,111 @@ void verPortafolio(Cliente cliente)
     }
 }
 
+// Función para vender acciones
+void venderAcciones(Cliente *cliente, Empresa empresas[], int num_empresas) {
+    if (cliente->num_inversiones == 0) {
+        printf("El cliente no tiene inversiones para vender.\n");
+        return;
+    }
+
+    printf("\nPortafolio de %s:\n", cliente->nombre);
+    for (int i = 0; i < cliente->num_inversiones; i++) {
+        Inversion inv = cliente->inversiones[i];
+        printf("%d. Empresa: %s | Cantidad de acciones: %d | Precio de compra: %.2f | Fecha: %s\n",
+               i + 1, inv.id_ticker, inv.cantidad_acciones, inv.precio_compra, inv.fecha);
+    }
+
+    int seleccion;
+    printf("Seleccione el número de la inversión que desea vender: ");
+    scanf("%d", &seleccion);
+    seleccion--;  // Ajustamos el índice
+
+    if (seleccion < 0 || seleccion >= cliente->num_inversiones) {
+        printf("Selección inválida.\n");
+        return;
+    }
+
+    Inversion *inv = &cliente->inversiones[seleccion];
+    Empresa *empresa = NULL;
+
+    // Buscamos la empresa correspondiente
+    for (int i = 0; i < num_empresas; i++) {
+        if (strcmp(empresas[i].id_ticker, inv->id_ticker) == 0) {
+            empresa = &empresas[i];
+            break;
+        }
+    }
+
+    if (!empresa) {
+        printf("Error: Empresa no encontrada.\n");
+        return;
+    }
+
+    int cantidad_a_vender;
+    printf("Ingrese la cantidad de acciones a vender (máximo %d): ", inv->cantidad_acciones);
+    scanf("%d", &cantidad_a_vender);
+
+    if (cantidad_a_vender <= 0 || cantidad_a_vender > inv->cantidad_acciones) {
+        printf("Cantidad de acciones inválida.\n");
+        return;
+    }
+
+    // Calculamos el total de la venta
+    float total_venta = cantidad_a_vender * empresa->precio_actual;
+    cliente->saldo_cuenta += total_venta;  // Sumamos al saldo del cliente
+    inv->cantidad_acciones -= cantidad_a_vender;  // Restamos las acciones vendidas
+
+    printf("Venta realizada con éxito. Total recibido: %.2f | Nuevo saldo: %.2f\n",
+           total_venta, cliente->saldo_cuenta);
+
+    // Si el cliente vendió todas las acciones de esa empresa, eliminamos la inversión
+    if (inv->cantidad_acciones == 0) {
+        // Desplazamos las inversiones para llenar el hueco
+        for (int i = seleccion; i < cliente->num_inversiones - 1; i++) {
+            cliente->inversiones[i] = cliente->inversiones[i + 1];
+        }
+        cliente->num_inversiones--;  // Reducimos el número de inversiones
+    }
+}
+// Función para calcular el rendimiento de las inversiones de un cliente
+void calcularRendimiento(Cliente cliente, Empresa empresas[], int num_empresas) {
+    if (cliente.num_inversiones == 0) {
+        printf("El cliente no tiene inversiones.\n");
+        return;
+    }
+
+    printf("\nRendimiento de las inversiones de %s:\n", cliente.nombre);
+
+    // Iteramos por cada inversión del cliente
+    for (int i = 0; i < cliente.num_inversiones; i++) {
+        Inversion inv = cliente.inversiones[i];
+        Empresa *empresa = NULL;
+
+        // Buscamos la empresa correspondiente
+        for (int j = 0; j < num_empresas; j++) {
+            if (strcmp(empresas[j].id_ticker, inv.id_ticker) == 0) {
+                empresa = &empresas[j];
+                break;
+            }
+        }
+
+        if (!empresa) {
+            printf("Error: Empresa no encontrada para la inversión %s.\n", inv.id_ticker);
+            continue;
+        }
+
+        // Calcular el valor actual de la inversión
+        float valor_actual = inv.cantidad_acciones * empresa->precio_actual;
+        float valor_compra = inv.cantidad_acciones * inv.precio_compra;
+
+        // Calcular el rendimiento en porcentaje
+        float rendimiento = ((empresa->precio_actual - inv.precio_compra) / inv.precio_compra) * 100;
+
+        // Mostrar resultados
+        printf("Empresa: %s | Cantidad: %d | Precio de compra: %.2f | Precio actual: %.2f\n",
+               inv.id_ticker, inv.cantidad_acciones, inv.precio_compra, empresa->precio_actual);
+        printf("Valor de compra: %.2f | Valor actual: %.2f\n", valor_compra, valor_actual);
+        printf("Rendimiento: %.2f%%\n", rendimiento);
+        printf("-----------------------------\n");
+    }
+}

@@ -57,3 +57,4 @@ void preCargarInversiones(Cliente *cliente, Empresa empresas[], int num_empresas
 
     printf("Inversiones pre-cargadas para %s.\n", cliente->nombre);
 }
+
